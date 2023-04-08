@@ -72,6 +72,7 @@ class SearchHandler:
                 listingSubtitle = item.select_one("div.s-item__info.clearfix > div.s-item__subtitle > span.SECONDARY_INFO")
                 if listingSubtitle is not None:
                     listingSubtitle = listingSubtitle.text
+                    phrase = None
                     for phrase in self.filtered_phrases:
                         if phrase.lower() in listingSubtitle.lower():
                             break
