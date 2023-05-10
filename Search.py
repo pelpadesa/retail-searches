@@ -4,7 +4,6 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.firefox.service import Service
 
-from urllib.parse import urlparse
 import re
 
 def LoadDriver(
