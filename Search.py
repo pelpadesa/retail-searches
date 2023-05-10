@@ -96,23 +96,6 @@ class SearchHandler:
             Query = Query.lower().replace("\"", "")
             if Query.lower().replace("\"", "") not in listingTitle.lower() and Query.lower().replace("\"", "").replace(" ", "").replace("rtx", "").replace("rx", "").replace("gtx", "") not in listingTitle.lower():
                 continue
-            
-            # GPU-specific hard coded filters, maybe replaceable with more fancy phrase filtering?
-            if " ti " in listingTitle.lower() and " ti" not in Query:
-                continue
-            elif " ti" in Query and "ti " not in listingTitle.lower():
-                continue
-
-            if "xt " in listingTitle.lower() and " xt" not in Query:
-                continue
-            elif " xt" in Query and "xt " not in listingTitle.lower():
-                if " xtx" not in Query:
-                    continue
-
-            if "xtx " in listingTitle.lower() and " xtx" not in Query:
-                continue
-            elif " xtx" in Query and "xtx " not in listingTitle.lower():
-                continue
 
             listing = Listing(
                 title = listingTitle,
