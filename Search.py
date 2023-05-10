@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.firefox.service import Service
 
+from urllib.parse import urlparse
 import re
 
 def LoadDriver(
@@ -37,6 +38,7 @@ class SearchHandler:
             Query: str, 
             listingTitle_Selector, listingPrice_Selector, listing_Selector, listingURL_Selector,
             UseSelenium: bool = False,
+            listingSubTitle_Selector: str = None
         ):
         '''Returns a `list` of `Listing` objects at the URL constructed by `{URL_Part1}{Query}{URL_Part2}.\n `_Selector` fields are CSS selectors, `listing_Selector` is absolute and should return all listing objects on a page. The other selector fields are relative to listing divs on the page.'''
         output_listings = []
@@ -67,10 +69,9 @@ class SearchHandler:
             if listingTitle is None or listingPrice is None or listingURL is None:
                 continue
             
-            # Start of Spaghetti
-            if "ebay" in requestURL.lower():
-                listingSubtitle = item.select_one("div.s-item__info.clearfix > div.s-item__subtitle > span.SECONDARY_INFO")
-                if listingSubtitle is not None:
+            if listingSubTitle_Selector is not None:
+                listingSubTitle = item.select_one(listingSubTitle_Selector)
+                if listingSubTitle is not None:
                     listingSubtitle = listingSubtitle.text
                     phrase = None
                     for phrase in self.filtered_phrases:
@@ -79,7 +80,6 @@ class SearchHandler:
                     if phrase is not None:
                         if phrase.lower() in listingSubtitle.lower():
                             continue 
-            # End of Spaghetti
 
             listingTitle = listingTitle.text
             listingPrice = listingPrice.text
