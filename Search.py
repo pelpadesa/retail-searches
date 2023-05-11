@@ -93,7 +93,7 @@ class SearchHandler:
                     continue
 
             Query = Query.lower().replace("\"", "")
-            if Query.lower().replace("\"", "") not in listingTitle.lower() and Query.lower().replace("\"", "").replace(" ", "").replace("rtx", "").replace("rx", "").replace("gtx", "") not in listingTitle.lower():
+            if Query not in listingTitle.lower():
                 continue
 
             listing = Listing(
